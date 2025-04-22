@@ -1,0 +1,237 @@
+/* 
+ * MindWell - Custom CSS Styles
+ * These styles extend the Bootstrap theme with application-specific styling
+ */
+
+/* Body and general styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Active navigation link highlight */
+.navbar-nav .nav-link.active {
+    color: var(--bs-info);
+    font-weight: 500;
+}
+
+/* Card hover effects for resource cards and interactive elements */
+.card.h-100:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Mood slider customization */
+input[type="range"] {
+    height: 2.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    cursor: pointer;
+}
+
+/* Dashboard card enhancements */
+.dashboard-card {
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    border-color: var(--bs-info);
+}
+
+/* Breathing exercise animation styles */
+.breathing-animation {
+    position: relative;
+    height: 250px;
+    background-color: #333;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.breathing-animation .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(23, 162, 184, 0.7);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.breathing-animation .instruction-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 10;
+    width: 100%;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Breathing animation phases */
+.circle-inhale {
+    animation: inhale 4s ease-in-out;
+}
+
+.circle-hold {
+    animation: hold 7s ease-in-out;
+}
+
+.circle-exhale {
+    animation: exhale 8s ease-in-out;
+}
+
+@keyframes inhale {
+    from {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(23, 162, 184, 0.7);
+    }
+    to {
+        width: 200px;
+        height: 200px;
+        background-color: rgba(23, 162, 184, 0.5);
+    }
+}
+
+@keyframes hold {
+    from {
+        width: 200px;
+        height: 200px;
+        background-color: rgba(23, 162, 184, 0.5);
+    }
+    to {
+        width: 200px;
+        height: 200px;
+        background-color: rgba(23, 162, 184, 0.5);
+    }
+}
+
+@keyframes exhale {
+    from {
+        width: 200px;
+        height: 200px;
+        background-color: rgba(23, 162, 184, 0.5);
+    }
+    to {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(23, 162, 184, 0.7);
+    }
+}
+
+/* Timer display styles */
+.timer-display {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(23, 162, 184, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Badge styling */
+.badge {
+    font-weight: normal;
+    padding: 0.4em 0.6em;
+}
+
+/* Custom spacing for list items */
+.list-group-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Assessment form styling */
+.form-check {
+    margin-bottom: 0.5rem;
+}
+
+/* Resource content styling */
+.resource-content {
+    line-height: 1.7;
+}
+
+.resource-content p {
+    margin-bottom: 1.2rem;
+}
+
+/* Sticky sidebar for resources */
+.sticky-top {
+    top: 2rem;
+    z-index: 100;
+}
+
+/* Progress bar animation */
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1, .h1 {
+        font-size: 2rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.75rem;
+    }
+    
+    .jumbotron {
+        padding: 2rem 1rem;
+    }
+    
+    .breathing-animation {
+        height: 200px;
+    }
+    
+    .sticky-top {
+        position: relative;
+        top: 0;
+    }
+}
+
+/* Print styles for assessment results */
+@media print {
+    .navbar, .footer, button, .btn {
+        display: none !important;
+    }
+    
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+    
+    .card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+    
+    .card-header {
+        background-color: #f8f9fa !important;
+        color: black !important;
+    }
+    
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .alert-info {
+        border: 1px solid #ccc !important;
+        background-color: #f8f9fa !important;
+        color: black !important;
+    }
+}

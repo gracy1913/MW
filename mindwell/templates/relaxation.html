@@ -1,0 +1,354 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>MindWell - Relaxation & Mindfulness</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 border-bottom pb-2"><i class="fas fa-spa text-info me-2"></i>Relaxation & Mindfulness</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <p class="mb-0">Regular relaxation and mindfulness practice can significantly improve mental wellbeing by reducing stress, anxiety, and helping manage difficult emotions.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Featured Exercise -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-lungs text-info me-2"></i>Featured Exercise: Deep Breathing</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5 mb-4 mb-md-0">
+                            <div class="ratio ratio-16x9 mb-3">
+                                <div class="breathing-animation d-flex align-items-center justify-content-center rounded" id="breathing-circle">
+                                    <div class="circle"></div>
+                                    <div class="instruction-text text-center">Click to begin</div>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-3">
+                                <button id="start-breathing" class="btn btn-info">Start Exercise</button>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h5>4-7-8 Breathing Technique</h5>
+                            <p>This powerful breathing exercise can help reduce anxiety, manage stress, and promote better sleep. It works as a natural tranquilizer for the nervous system.</p>
+                            
+                            <h6 class="mt-4">How to Practice:</h6>
+                            <ol>
+                                <li>Find a comfortable seated position with your back straight</li>
+                                <li>Place the tip of your tongue against the ridge behind your upper front teeth throughout the exercise</li>
+                                <li><strong>Inhale</strong> through your nose for a count of <strong>4</strong></li>
+                                <li><strong>Hold</strong> your breath for a count of <strong>7</strong></li>
+                                <li><strong>Exhale</strong> completely through your mouth for a count of <strong>8</strong></li>
+                                <li>Repeat the cycle 3-4 times</li>
+                            </ol>
+                            
+                            <div class="alert alert-light mt-3">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                <strong>Tip:</strong> This exercise is most effective when practiced twice daily, but can also be used in moments of acute stress or anxiety.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exercise Categories -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="border-bottom pb-2 mb-4"><i class="fas fa-list-alt text-info me-2"></i>Mindfulness Exercise Library</h3>
+        </div>
+        
+        <!-- Breathing Exercises -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-wind text-info me-2"></i>Breathing Exercises</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Box Breathing</h6>
+                                <span class="badge bg-info">4 minutes</span>
+                            </div>
+                            <p class="mb-1">Equal timing for inhale, hold, exhale, and hold. Used by Navy SEALs to stay calm under pressure.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#box-breathing">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="box-breathing">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Sit upright in a comfortable position</li>
+                                        <li>Breathe in through your nose for 4 seconds</li>
+                                        <li>Hold your breath for 4 seconds</li>
+                                        <li>Exhale through your mouth for 4 seconds</li>
+                                        <li>Hold empty lungs for 4 seconds</li>
+                                        <li>Repeat for at least 4 cycles</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Diaphragmatic Breathing</h6>
+                                <span class="badge bg-info">5 minutes</span>
+                            </div>
+                            <p class="mb-1">Also called belly breathing, this technique helps engage the diaphragm fully for relaxation.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#diaphragmatic-breathing">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="diaphragmatic-breathing">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Lie on your back with knees bent (or sit comfortably)</li>
+                                        <li>Place one hand on your chest and one on your abdomen</li>
+                                        <li>Breathe in deeply through your nose, feeling your abdomen rise more than your chest</li>
+                                        <li>Exhale slowly through pursed lips</li>
+                                        <li>Repeat for 5-10 minutes</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Alternate Nostril Breathing</h6>
+                                <span class="badge bg-info">3 minutes</span>
+                            </div>
+                            <p class="mb-1">A yogic breathing technique that helps balance energy and calm the mind.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#alternate-nostril">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="alternate-nostril">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Sit in a comfortable position with your spine straight</li>
+                                        <li>Use your right thumb to close your right nostril</li>
+                                        <li>Inhale slowly through your left nostril</li>
+                                        <li>Close your left nostril with your ring finger, release your thumb</li>
+                                        <li>Exhale through your right nostril</li>
+                                        <li>Inhale through your right nostril</li>
+                                        <li>Close the right nostril, release the left</li>
+                                        <li>Exhale through the left nostril</li>
+                                        <li>Repeat for 5-10 cycles</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Meditation Exercises -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-brain text-info me-2"></i>Meditation Practices</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Body Scan Meditation</h6>
+                                <span class="badge bg-info">10 minutes</span>
+                            </div>
+                            <p class="mb-1">A progressive relaxation technique that increases body awareness and releases tension.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#body-scan">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="body-scan">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Lie down or sit in a comfortable position</li>
+                                        <li>Close your eyes and take a few deep breaths</li>
+                                        <li>Bring awareness to your feet, noticing any sensations</li>
+                                        <li>Gradually move your attention upward through your body</li>
+                                        <li>Notice each body part: legs, hips, abdomen, chest, back, shoulders, arms, hands, neck, and head</li>
+                                        <li>For each area, observe sensations without judgment</li>
+                                        <li>If you notice tension, breathe into that area and visualize it relaxing</li>
+                                        <li>End with awareness of your whole body</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Loving-Kindness Meditation</h6>
+                                <span class="badge bg-info">7 minutes</span>
+                            </div>
+                            <p class="mb-1">Cultivates feelings of compassion, first for yourself and then extending to others.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#loving-kindness">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="loving-kindness">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Sit comfortably with your eyes closed</li>
+                                        <li>Begin by focusing on your heart center</li>
+                                        <li>Repeat silently to yourself: "May I be happy. May I be healthy. May I be safe. May I live with ease."</li>
+                                        <li>Next, visualize someone you care about and direct these wishes to them</li>
+                                        <li>Expand to someone neutral in your life</li>
+                                        <li>If you're ready, extend these wishes to someone difficult in your life</li>
+                                        <li>Finally, extend these wishes to all beings everywhere</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6>Mindful Observation</h6>
+                                <span class="badge bg-info">5 minutes</span>
+                            </div>
+                            <p class="mb-1">A simple practice to ground yourself in the present moment through observation.</p>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#mindful-observation">
+                                View Instructions
+                            </button>
+                            <div class="collapse mt-3" id="mindful-observation">
+                                <div class="card card-body bg-dark">
+                                    <ol>
+                                        <li>Choose a natural object within your immediate environment (a plant, cloud, or moon)</li>
+                                        <li>Focus all your attention on this object</li>
+                                        <li>Observe it as if you're seeing it for the first time</li>
+                                        <li>Explore every aspect of its formation</li>
+                                        <li>Allow yourself to be consumed by its presence</li>
+                                        <li>Allow your mind to be fully present and engaged with this object</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Guided Practice and Timer -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-stopwatch text-info me-2"></i>Meditation Timer</h5>
+                </div>
+                <div class="card-body">
+                    <p>Use this timer for your mindfulness practice. Choose a duration and optional interval bells.</p>
+                    
+                    <form id="timer-form">
+                        <div class="mb-3">
+                            <label for="duration" class="form-label">Duration (minutes)</label>
+                            <select class="form-select" id="duration">
+                                <option value="1">1 minute</option>
+                                <option value="3">3 minutes</option>
+                                <option value="5" selected>5 minutes</option>
+                                <option value="10">10 minutes</option>
+                                <option value="15">15 minutes</option>
+                                <option value="20">20 minutes</option>
+                                <option value="30">30 minutes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="interval-bells" class="form-label">Interval Bells</label>
+                            <select class="form-select" id="interval-bells">
+                                <option value="0">No interval bells</option>
+                                <option value="1">Every 1 minute</option>
+                                <option value="5">Every 5 minutes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="start-bell" checked>
+                            <label class="form-check-label" for="start-bell">
+                                Play bell at start
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="end-bell" checked>
+                            <label class="form-check-label" for="end-bell">
+                                Play bell at end
+                            </label>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center">
+                        <div class="timer-display mb-3 d-none">
+                            <h2 id="timer-countdown">05:00</h2>
+                            <p class="text-muted" id="timer-status">Meditation in progress...</p>
+                        </div>
+                        
+                        <button id="start-timer" class="btn btn-info me-2">Start Timer</button>
+                        <button id="pause-timer" class="btn btn-outline-secondary me-2 d-none">Pause</button>
+                        <button id="stop-timer" class="btn btn-outline-danger d-none">Stop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-leaf text-info me-2"></i>Benefits of Mindfulness</h5>
+                </div>
+                <div class="card-body">
+                    <p>Regular mindfulness practice has been scientifically proven to provide numerous benefits:</p>
+                    
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-brain text-info me-2"></i>
+                            <strong>Reduced Stress and Anxiety</strong>
+                            <p class="mb-1 small">Mindfulness practices help activate the parasympathetic nervous system, reducing stress hormones and promoting relaxation.</p>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-heart text-info me-2"></i>
+                            <strong>Improved Emotional Regulation</strong>
+                            <p class="mb-1 small">Regular practice helps create space between emotions and reactions, allowing for healthier responses to difficult situations.</p>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-eye text-info me-2"></i>
+                            <strong>Increased Self-Awareness</strong>
+                            <p class="mb-1 small">Mindfulness helps you observe your thoughts and feelings without judgment, leading to greater self-understanding.</p>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-bed text-info me-2"></i>
+                            <strong>Better Sleep Quality</strong>
+                            <p class="mb-1 small">Regular relaxation practices can help reduce insomnia and improve overall sleep quality.</p>
+                        </div>
+                        
+                        <div class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-lightbulb text-info me-2"></i>
+                            <strong>Enhanced Focus and Concentration</strong>
+                            <p class="mb-1 small">Mindfulness trains the mind to stay present, improving attention span and cognitive performance.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note:</strong> Consistency is key. Even just 5 minutes of daily practice can yield significant benefits over time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/relaxation.js') }}"></script>
+{% endblock %}

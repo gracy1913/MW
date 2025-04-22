@@ -1,0 +1,265 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>MindWell - Your Dashboard</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 border-bottom pb-2"><i class="fas fa-chart-line text-info me-2"></i>Your Mental Health Dashboard</h2>
+    
+    <div class="row mb-5">
+        <div class="col-md-8">
+            <div class="card bg-dark mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-calendar-day me-2"></i>Mood Trends</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="moodChart" height="300"></canvas>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>Tracking the last {{ mood_entries|length }} mood entries</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-dark h-100">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Quick Insights</h5>
+                </div>
+                <div class="card-body">
+                    {% if mood_entries %}
+                        {% set avg_mood = 0 %}
+                        {% for entry in mood_entries %}
+                            {% set avg_mood = avg_mood + entry.mood_level %}
+                        {% endfor %}
+                        {% set avg_mood = (avg_mood / mood_entries|length)|round(1, 'floor') %}
+                        
+                        <div class="mb-3">
+                            <h6>Average Mood Level</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ avg_mood * 10 }}%">
+                                    {{ avg_mood }}/10
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>Recent Entry Count</h6>
+                            <p><i class="fas fa-calendar-check me-2"></i>{{ mood_entries|length }} entries recorded</p>
+                        </div>
+                        
+                        <div>
+                            <h6>Mood Trends</h6>
+                            {% if mood_entries|length > 1 %}
+                                {% if mood_entries[0].mood_level > mood_entries[1].mood_level %}
+                                    <p class="text-success"><i class="fas fa-arrow-up me-2"></i>Improving recently</p>
+                                {% elif mood_entries[0].mood_level < mood_entries[1].mood_level %}
+                                    <p class="text-danger"><i class="fas fa-arrow-down me-2"></i>Declining recently</p>
+                                {% else %}
+                                    <p><i class="fas fa-equals me-2"></i>Stable recently</p>
+                                {% endif %}
+                            {% else %}
+                                <p><i class="fas fa-info-circle me-2"></i>Not enough data</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-exclamation-circle fa-3x mb-3 text-muted"></i>
+                            <p>No mood entries yet. Start tracking your mood to see insights!</p>
+                            <a href="{{ url_for('mood_tracker') }}" class="btn btn-outline-info mt-2">Log Your Mood</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-dark mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Recent Assessments</h5>
+                    <a href="{{ url_for('assessment') }}" class="btn btn-sm btn-outline-info">Take Assessment</a>
+                </div>
+                <div class="card-body">
+                    {% if assessment_results %}
+                        <div class="list-group list-group-flush">
+                            {% for result in assessment_results %}
+                                <div class="list-group-item bg-dark border-secondary">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6>{{ result.assessment_type }}</h6>
+                                        <small>{{ result.timestamp.strftime('%b %d, %Y') }}</small>
+                                    </div>
+                                    <div class="mb-1">Score: {{ result.score }}/{{ result.max_score }}</div>
+                                    <div class="progress mb-2" style="height: 10px;">
+                                        <div class="progress-bar 
+                                            {% if 'minimal' in result.interpretation.lower() %}
+                                                bg-success
+                                            {% elif 'mild' in result.interpretation.lower() %}
+                                                bg-info
+                                            {% elif 'moderate' in result.interpretation.lower() %}
+                                                bg-warning
+                                            {% else %}
+                                                bg-danger
+                                            {% endif %}"
+                                            role="progressbar" 
+                                            style="width: {{ (result.score / result.max_score * 100)|round }}%" 
+                                            aria-valuenow="{{ result.score }}" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="{{ result.max_score }}">
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">{{ result.interpretation }}</small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-clipboard fa-3x mb-3 text-muted"></i>
+                            <p>No assessments completed yet. Take an assessment to gauge your mental wellbeing.</p>
+                            <a href="{{ url_for('assessment') }}" class="btn btn-outline-info mt-2">Take Assessment</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card bg-dark mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Recent Mood Entries</h5>
+                    <a href="{{ url_for('mood_tracker') }}" class="btn btn-sm btn-outline-info">Log Mood</a>
+                </div>
+                <div class="card-body">
+                    {% if mood_entries %}
+                        <div class="list-group list-group-flush">
+                            {% for entry in mood_entries[:5] %}
+                                <div class="list-group-item bg-dark border-secondary">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6>Mood Level: {{ entry.mood_level }}/10</h6>
+                                        <small>{{ entry.timestamp.strftime('%b %d, %Y') }}</small>
+                                    </div>
+                                    {% if entry.notes %}
+                                        <p class="mb-1">Notes: {{ entry.notes }}</p>
+                                    {% endif %}
+                                    {% if entry.activities %}
+                                        <small class="text-muted">
+                                            Activities: 
+                                            {% for activity in entry.activities %}
+                                                <span class="badge bg-secondary me-1">{{ activity }}</span>
+                                            {% endfor %}
+                                        </small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-calendar-alt fa-3x mb-3 text-muted"></i>
+                            <p>No mood entries yet. Start tracking your mood!</p>
+                            <a href="{{ url_for('mood_tracker') }}" class="btn btn-outline-info mt-2">Log Your Mood</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Wellness Suggestions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="{{ url_for('relaxation') }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6><i class="fas fa-spa text-info me-2"></i>Try a Breathing Exercise</h6>
+                            </div>
+                            <p class="mb-1">Reduce stress with a 5-minute breathing exercise</p>
+                        </a>
+                        <a href="{{ url_for('resources') }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6><i class="fas fa-book-open text-info me-2"></i>Explore Resources</h6>
+                            </div>
+                            <p class="mb-1">Read about mental health topics and coping strategies</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Create the mood chart if there's data
+    if (document.getElementById('moodChart')) {
+        const ctx = document.getElementById('moodChart').getContext('2d');
+        
+        const labels = {{ dates|tojson }};
+        const data = {{ mood_levels|tojson }};
+        
+        if (labels.length > 0 && data.length > 0) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Mood Level (1-10)',
+                        data: data,
+                        fill: true,
+                        backgroundColor: 'rgba(23, 162, 184, 0.2)',
+                        borderColor: 'rgba(23, 162, 184, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(23, 162, 184, 1)',
+                        pointBorderColor: '#fff',
+                        pointRadius: 5,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Mood Level'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            bodyFont: {
+                                size: 14
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return `Mood Level: ${context.parsed.y}/10`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+});
+</script>
+{% endblock %}

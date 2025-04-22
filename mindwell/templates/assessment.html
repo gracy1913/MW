@@ -1,0 +1,788 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>MindWell - Assessments</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 border-bottom pb-2"><i class="fas fa-clipboard-list text-info me-2"></i>Mental Health Assessments</h2>
+    
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Disclaimer:</strong> These assessments are for educational purposes only and are not a substitute for professional diagnosis or treatment. If you're experiencing mental health difficulties, please consult with a healthcare professional.
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-wind text-info me-2"></i>Anxiety Assessment (GAD-7)</h5>
+                </div>
+                <div class="card-body">
+                    <p>The GAD-7 is a validated self-report questionnaire used to assess generalized anxiety disorder symptoms.</p>
+                    <p><strong>Time to complete:</strong> 2-3 minutes</p>
+                    <p><strong>About the test:</strong> 7 questions assessing frequency of anxiety symptoms over the past two weeks.</p>
+                    <button class="btn btn-outline-info w-100" data-bs-toggle="collapse" data-bs-target="#anxietyForm">
+                        Take Assessment
+                    </button>
+                    
+                    <div class="collapse mt-3" id="anxietyForm">
+                        <form action="{{ url_for('assessment') }}" method="post" id="anxietyAssessment">
+                            <input type="hidden" name="assessment_type" value="anxiety">
+                            
+                            <p class="mb-3">Over the last 2 weeks, how often have you been bothered by the following problems?</p>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>1. Feeling nervous, anxious, or on edge</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="q1_0" value="0" required>
+                                        <label class="form-check-label" for="q1_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="q1_1" value="1">
+                                        <label class="form-check-label" for="q1_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="q1_2" value="2">
+                                        <label class="form-check-label" for="q1_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="q1_3" value="3">
+                                        <label class="form-check-label" for="q1_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>2. Not being able to stop or control worrying</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="q2_0" value="0" required>
+                                        <label class="form-check-label" for="q2_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="q2_1" value="1">
+                                        <label class="form-check-label" for="q2_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="q2_2" value="2">
+                                        <label class="form-check-label" for="q2_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="q2_3" value="3">
+                                        <label class="form-check-label" for="q2_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>3. Worrying too much about different things</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="q3_0" value="0" required>
+                                        <label class="form-check-label" for="q3_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="q3_1" value="1">
+                                        <label class="form-check-label" for="q3_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="q3_2" value="2">
+                                        <label class="form-check-label" for="q3_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="q3_3" value="3">
+                                        <label class="form-check-label" for="q3_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>4. Trouble relaxing</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="q4_0" value="0" required>
+                                        <label class="form-check-label" for="q4_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="q4_1" value="1">
+                                        <label class="form-check-label" for="q4_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="q4_2" value="2">
+                                        <label class="form-check-label" for="q4_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="q4_3" value="3">
+                                        <label class="form-check-label" for="q4_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>5. Being so restless that it's hard to sit still</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="q5_0" value="0" required>
+                                        <label class="form-check-label" for="q5_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="q5_1" value="1">
+                                        <label class="form-check-label" for="q5_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="q5_2" value="2">
+                                        <label class="form-check-label" for="q5_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="q5_3" value="3">
+                                        <label class="form-check-label" for="q5_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>6. Becoming easily annoyed or irritable</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="q6_0" value="0" required>
+                                        <label class="form-check-label" for="q6_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="q6_1" value="1">
+                                        <label class="form-check-label" for="q6_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="q6_2" value="2">
+                                        <label class="form-check-label" for="q6_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="q6_3" value="3">
+                                        <label class="form-check-label" for="q6_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>7. Feeling afraid as if something awful might happen</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="q7_0" value="0" required>
+                                        <label class="form-check-label" for="q7_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="q7_1" value="1">
+                                        <label class="form-check-label" for="q7_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="q7_2" value="2">
+                                        <label class="form-check-label" for="q7_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="q7_3" value="3">
+                                        <label class="form-check-label" for="q7_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-info px-4">Submit Assessment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-cloud-rain text-info me-2"></i>Depression Assessment (PHQ-9)</h5>
+                </div>
+                <div class="card-body">
+                    <p>The PHQ-9 is a validated self-report questionnaire for depression screening, diagnosis, and monitoring.</p>
+                    <p><strong>Time to complete:</strong> 3-5 minutes</p>
+                    <p><strong>About the test:</strong> 9 questions based on the DSM-IV criteria for depression.</p>
+                    <button class="btn btn-outline-info w-100" data-bs-toggle="collapse" data-bs-target="#depressionForm">
+                        Take Assessment
+                    </button>
+                    
+                    <div class="collapse mt-3" id="depressionForm">
+                        <form action="{{ url_for('assessment') }}" method="post" id="depressionAssessment">
+                            <input type="hidden" name="assessment_type" value="depression">
+                            
+                            <p class="mb-3">Over the last 2 weeks, how often have you been bothered by any of the following problems?</p>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>1. Little interest or pleasure in doing things</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="d_q1_0" value="0" required>
+                                        <label class="form-check-label" for="d_q1_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="d_q1_1" value="1">
+                                        <label class="form-check-label" for="d_q1_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="d_q1_2" value="2">
+                                        <label class="form-check-label" for="d_q1_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="d_q1_3" value="3">
+                                        <label class="form-check-label" for="d_q1_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>2. Feeling down, depressed, or hopeless</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="d_q2_0" value="0" required>
+                                        <label class="form-check-label" for="d_q2_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="d_q2_1" value="1">
+                                        <label class="form-check-label" for="d_q2_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="d_q2_2" value="2">
+                                        <label class="form-check-label" for="d_q2_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="d_q2_3" value="3">
+                                        <label class="form-check-label" for="d_q2_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>3. Trouble falling or staying asleep, or sleeping too much</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="d_q3_0" value="0" required>
+                                        <label class="form-check-label" for="d_q3_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="d_q3_1" value="1">
+                                        <label class="form-check-label" for="d_q3_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="d_q3_2" value="2">
+                                        <label class="form-check-label" for="d_q3_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="d_q3_3" value="3">
+                                        <label class="form-check-label" for="d_q3_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>4. Feeling tired or having little energy</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="d_q4_0" value="0" required>
+                                        <label class="form-check-label" for="d_q4_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="d_q4_1" value="1">
+                                        <label class="form-check-label" for="d_q4_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="d_q4_2" value="2">
+                                        <label class="form-check-label" for="d_q4_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="d_q4_3" value="3">
+                                        <label class="form-check-label" for="d_q4_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>5. Poor appetite or overeating</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="d_q5_0" value="0" required>
+                                        <label class="form-check-label" for="d_q5_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="d_q5_1" value="1">
+                                        <label class="form-check-label" for="d_q5_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="d_q5_2" value="2">
+                                        <label class="form-check-label" for="d_q5_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="d_q5_3" value="3">
+                                        <label class="form-check-label" for="d_q5_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>6. Feeling bad about yourself - or that you are a failure or have let yourself or your family down</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="d_q6_0" value="0" required>
+                                        <label class="form-check-label" for="d_q6_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="d_q6_1" value="1">
+                                        <label class="form-check-label" for="d_q6_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="d_q6_2" value="2">
+                                        <label class="form-check-label" for="d_q6_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="d_q6_3" value="3">
+                                        <label class="form-check-label" for="d_q6_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>7. Trouble concentrating on things, such as reading the newspaper or watching television</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="d_q7_0" value="0" required>
+                                        <label class="form-check-label" for="d_q7_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="d_q7_1" value="1">
+                                        <label class="form-check-label" for="d_q7_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="d_q7_2" value="2">
+                                        <label class="form-check-label" for="d_q7_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="d_q7_3" value="3">
+                                        <label class="form-check-label" for="d_q7_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>8. Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="d_q8_0" value="0" required>
+                                        <label class="form-check-label" for="d_q8_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="d_q8_1" value="1">
+                                        <label class="form-check-label" for="d_q8_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="d_q8_2" value="2">
+                                        <label class="form-check-label" for="d_q8_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="d_q8_3" value="3">
+                                        <label class="form-check-label" for="d_q8_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>9. Thoughts that you would be better off dead, or of hurting yourself in some way</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="d_q9_0" value="0" required>
+                                        <label class="form-check-label" for="d_q9_0">Not at all</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="d_q9_1" value="1">
+                                        <label class="form-check-label" for="d_q9_1">Several days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="d_q9_2" value="2">
+                                        <label class="form-check-label" for="d_q9_2">More than half the days</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="d_q9_3" value="3">
+                                        <label class="form-check-label" for="d_q9_3">Nearly every day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Important:</strong> If you're having thoughts of harming yourself, please seek help immediately:
+                                <ul class="mb-0 mt-2">
+                                    <li>National Suicide Prevention Lifeline: 1-800-273-8255</li>
+                                    <li>Crisis Text Line: Text HOME to 741741</li>
+                                    <li>Or go to your nearest emergency room</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-info px-4">Submit Assessment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-balance-scale text-info me-2"></i>Stress Assessment (PSS-10)</h5>
+                </div>
+                <div class="card-body">
+                    <p>The Perceived Stress Scale (PSS-10) is one of the most widely used psychological instruments for measuring the perception of stress.</p>
+                    <p><strong>Time to complete:</strong> 3-5 minutes</p>
+                    <p><strong>About the test:</strong> 10 questions about feelings and thoughts during the last month.</p>
+                    <button class="btn btn-outline-info w-100" data-bs-toggle="collapse" data-bs-target="#stressForm">
+                        Take Assessment
+                    </button>
+                    
+                    <div class="collapse mt-3" id="stressForm">
+                        <form action="{{ url_for('assessment') }}" method="post" id="stressAssessment">
+                            <input type="hidden" name="assessment_type" value="stress">
+                            
+                            <p class="mb-3">The questions in this scale ask you about your feelings and thoughts during the last month. In each case, please indicate how often you felt or thought a certain way.</p>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>1. In the last month, how often have you been upset because of something that happened unexpectedly?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="s_q1_0" value="0" required>
+                                        <label class="form-check-label" for="s_q1_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="s_q1_1" value="1">
+                                        <label class="form-check-label" for="s_q1_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="s_q1_2" value="2">
+                                        <label class="form-check-label" for="s_q1_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="s_q1_3" value="3">
+                                        <label class="form-check-label" for="s_q1_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q1" id="s_q1_4" value="4">
+                                        <label class="form-check-label" for="s_q1_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>2. In the last month, how often have you felt that you were unable to control the important things in your life?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="s_q2_0" value="0" required>
+                                        <label class="form-check-label" for="s_q2_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="s_q2_1" value="1">
+                                        <label class="form-check-label" for="s_q2_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="s_q2_2" value="2">
+                                        <label class="form-check-label" for="s_q2_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="s_q2_3" value="3">
+                                        <label class="form-check-label" for="s_q2_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q2" id="s_q2_4" value="4">
+                                        <label class="form-check-label" for="s_q2_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>3. In the last month, how often have you felt nervous and stressed?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="s_q3_0" value="0" required>
+                                        <label class="form-check-label" for="s_q3_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="s_q3_1" value="1">
+                                        <label class="form-check-label" for="s_q3_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="s_q3_2" value="2">
+                                        <label class="form-check-label" for="s_q3_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="s_q3_3" value="3">
+                                        <label class="form-check-label" for="s_q3_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q3" id="s_q3_4" value="4">
+                                        <label class="form-check-label" for="s_q3_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>4. In the last month, how often have you felt confident about your ability to handle your personal problems?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="s_q4_0" value="0" required>
+                                        <label class="form-check-label" for="s_q4_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="s_q4_1" value="1">
+                                        <label class="form-check-label" for="s_q4_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="s_q4_2" value="2">
+                                        <label class="form-check-label" for="s_q4_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="s_q4_3" value="3">
+                                        <label class="form-check-label" for="s_q4_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q4" id="s_q4_4" value="4">
+                                        <label class="form-check-label" for="s_q4_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>5. In the last month, how often have you felt that things were going your way?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="s_q5_0" value="0" required>
+                                        <label class="form-check-label" for="s_q5_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="s_q5_1" value="1">
+                                        <label class="form-check-label" for="s_q5_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="s_q5_2" value="2">
+                                        <label class="form-check-label" for="s_q5_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="s_q5_3" value="3">
+                                        <label class="form-check-label" for="s_q5_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q5" id="s_q5_4" value="4">
+                                        <label class="form-check-label" for="s_q5_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>6. In the last month, how often have you found that you could not cope with all the things that you had to do?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="s_q6_0" value="0" required>
+                                        <label class="form-check-label" for="s_q6_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="s_q6_1" value="1">
+                                        <label class="form-check-label" for="s_q6_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="s_q6_2" value="2">
+                                        <label class="form-check-label" for="s_q6_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="s_q6_3" value="3">
+                                        <label class="form-check-label" for="s_q6_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q6" id="s_q6_4" value="4">
+                                        <label class="form-check-label" for="s_q6_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>7. In the last month, how often have you been able to control irritations in your life?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="s_q7_0" value="0" required>
+                                        <label class="form-check-label" for="s_q7_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="s_q7_1" value="1">
+                                        <label class="form-check-label" for="s_q7_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="s_q7_2" value="2">
+                                        <label class="form-check-label" for="s_q7_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="s_q7_3" value="3">
+                                        <label class="form-check-label" for="s_q7_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q7" id="s_q7_4" value="4">
+                                        <label class="form-check-label" for="s_q7_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>8. In the last month, how often have you felt that you were on top of things?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="s_q8_0" value="0" required>
+                                        <label class="form-check-label" for="s_q8_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="s_q8_1" value="1">
+                                        <label class="form-check-label" for="s_q8_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="s_q8_2" value="2">
+                                        <label class="form-check-label" for="s_q8_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="s_q8_3" value="3">
+                                        <label class="form-check-label" for="s_q8_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q8" id="s_q8_4" value="4">
+                                        <label class="form-check-label" for="s_q8_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>9. In the last month, how often have you been angered because of things that were outside of your control?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="s_q9_0" value="0" required>
+                                        <label class="form-check-label" for="s_q9_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="s_q9_1" value="1">
+                                        <label class="form-check-label" for="s_q9_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="s_q9_2" value="2">
+                                        <label class="form-check-label" for="s_q9_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="s_q9_3" value="3">
+                                        <label class="form-check-label" for="s_q9_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q9" id="s_q9_4" value="4">
+                                        <label class="form-check-label" for="s_q9_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-3 bg-dark border-secondary">
+                                <div class="card-body">
+                                    <p class="mb-2"><strong>10. In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?</strong></p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q10" id="s_q10_0" value="0" required>
+                                        <label class="form-check-label" for="s_q10_0">Never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q10" id="s_q10_1" value="1">
+                                        <label class="form-check-label" for="s_q10_1">Almost never</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q10" id="s_q10_2" value="2">
+                                        <label class="form-check-label" for="s_q10_2">Sometimes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q10" id="s_q10_3" value="3">
+                                        <label class="form-check-label" for="s_q10_3">Fairly often</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="q10" id="s_q10_4" value="4">
+                                        <label class="form-check-label" for="s_q10_4">Very often</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-info px-4">Submit Assessment</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>About Mental Health Assessments</h5>
+                </div>
+                <div class="card-body">
+                    <p>Mental health assessments are tools that help identify symptoms of common mental health conditions. They can provide insights into your mental wellbeing and help you understand when it might be appropriate to seek professional support.</p>
+                    
+                    <h6 class="mt-4">Benefits of Regular Assessment:</h6>
+                    <ul>
+                        <li>Early detection of potential mental health concerns</li>
+                        <li>Increased self-awareness of your emotional state</li>
+                        <li>Tracking changes in your mental health over time</li>
+                        <li>Identifying when professional support might be beneficial</li>
+                    </ul>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Important:</strong> These assessments are not diagnostic tools and should not replace consultation with qualified healthcare professionals. If you're experiencing significant distress or receiving concerning results, please reach out to a mental health professional.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-link me-2"></i>Additional Resources</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="{{ url_for('resources') }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6><i class="fas fa-book-open text-info me-2"></i>Mental Health Library</h6>
+                            </div>
+                            <p class="mb-1">Explore our collection of mental health articles and resources</p>
+                        </a>
+                        <a href="{{ url_for('relaxation') }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6><i class="fas fa-spa text-info me-2"></i>Relaxation Exercises</h6>
+                            </div>
+                            <p class="mb-1">Practice mindfulness and relaxation techniques</p>
+                        </a>
+                        <a href="{{ url_for('mood_tracker') }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6><i class="fas fa-chart-line text-info me-2"></i>Mood Tracking</h6>
+                            </div>
+                            <p class="mb-1">Track your mood patterns and identify triggers</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/assessment.js') }}"></script>
+{% endblock %}

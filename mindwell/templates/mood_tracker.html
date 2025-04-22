@@ -1,0 +1,213 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>MindWell - Mood Tracker</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 border-bottom pb-2"><i class="fas fa-calendar-check text-info me-2"></i>Mood Tracker</h2>
+    
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Log Your Mood</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('mood_tracker') }}" method="post">
+                        <div class="mb-4">
+                            <label for="mood_level" class="form-label">How are you feeling today? (1-10)</label>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="me-2"><i class="fas fa-frown text-danger"></i></span>
+                                <input type="range" class="form-range flex-grow-1" min="1" max="10" step="1" id="mood_level_slider" value="5">
+                                <span class="ms-2"><i class="fas fa-smile text-success"></i></span>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-8 text-end">
+                                    <span>Select your mood level (1-10): </span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" class="form-control" id="mood_level" name="mood_level" min="1" max="10" value="5" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">What activities did you do today? (select all that apply)</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Exercise" id="activity1">
+                                        <label class="form-check-label" for="activity1">Exercise</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Meditation" id="activity2">
+                                        <label class="form-check-label" for="activity2">Meditation</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Reading" id="activity3">
+                                        <label class="form-check-label" for="activity3">Reading</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Socializing" id="activity4">
+                                        <label class="form-check-label" for="activity4">Socializing</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Work/Study" id="activity5">
+                                        <label class="form-check-label" for="activity5">Work/Study</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Creative Activities" id="activity6">
+                                        <label class="form-check-label" for="activity6">Creative Activities</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Nature Time" id="activity7">
+                                        <label class="form-check-label" for="activity7">Nature Time</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="activities" value="Self-care" id="activity8">
+                                        <label class="form-check-label" for="activity8">Self-care</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="notes" class="form-label">Notes (optional)</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="How was your day? What factors might have affected your mood?"></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info px-4">Save Mood Entry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card bg-dark">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Mood Entries</h5>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-info">See Trends</a>
+                </div>
+                <div class="card-body">
+                    {% if mood_entries %}
+                        <div class="list-group list-group-flush">
+                            {% for entry in mood_entries %}
+                                <div class="list-group-item bg-dark border-secondary">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6>
+                                            {% if entry.mood_level >= 8 %}
+                                                <i class="fas fa-grin-beam text-success me-2"></i>
+                                            {% elif entry.mood_level >= 6 %}
+                                                <i class="fas fa-smile text-info me-2"></i>
+                                            {% elif entry.mood_level >= 4 %}
+                                                <i class="fas fa-meh text-warning me-2"></i>
+                                            {% elif entry.mood_level >= 2 %}
+                                                <i class="fas fa-frown text-danger me-2"></i>
+                                            {% else %}
+                                                <i class="fas fa-sad-tear text-danger me-2"></i>
+                                            {% endif %}
+                                            Mood Level: {{ entry.mood_level }}/10
+                                        </h6>
+                                        <small>{{ entry.timestamp.strftime('%b %d, %Y at %H:%M') }}</small>
+                                    </div>
+                                    
+                                    {% if entry.activities %}
+                                        <div class="mb-2">
+                                            <small class="text-muted">Activities:</small>
+                                            <div>
+                                                {% for activity in entry.activities %}
+                                                    <span class="badge bg-secondary me-1">{{ activity }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if entry.notes %}
+                                        <p class="mb-1 mt-2">
+                                            <small class="text-muted">Notes:</small><br>
+                                            {{ entry.notes }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-calendar-alt fa-3x mb-3 text-muted"></i>
+                            <p>No mood entries recorded yet. Start tracking your mood to see your history!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card bg-dark mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Mood Tracking Tips</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-check-circle text-info me-2"></i>
+                            <strong>Be consistent:</strong> Try to log your mood around the same time each day.
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-check-circle text-info me-2"></i>
+                            <strong>Be honest:</strong> Record how you actually feel, not how you think you should feel.
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-check-circle text-info me-2"></i>
+                            <strong>Add notes:</strong> Include factors that might have affected your mood.
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-check-circle text-info me-2"></i>
+                            <strong>Look for patterns:</strong> Review your entries to identify trends and triggers.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get references to both the slider and number input
+    const moodSlider = document.getElementById('mood_level_slider');
+    const moodInput = document.getElementById('mood_level');
+    
+    if (moodSlider && moodInput) {
+        console.log('Initial mood input value: ' + moodInput.value);
+        
+        // Sync slider to number input
+        moodSlider.addEventListener('input', function() {
+            console.log('Slider changed to: ' + this.value);
+            moodInput.value = this.value;
+        });
+        
+        // Sync number input to slider
+        moodInput.addEventListener('input', function() {
+            console.log('Number input changed to: ' + this.value);
+            moodSlider.value = this.value;
+        });
+        
+        // Form submission logging
+        const moodForm = document.querySelector('form[action*="mood_tracker"]');
+        if (moodForm) {
+            moodForm.addEventListener('submit', function(e) {
+                console.log('Form submitted with mood level: ' + moodInput.value);
+            });
+        }
+    } else {
+        console.error('Mood slider or input elements not found');
+    }
+});
+</script>
+{% endblock %}

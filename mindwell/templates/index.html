@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="jumbotron bg-dark p-5 rounded-3 text-center">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold text-info">Welcome to MindWell</h1>
+        <p class="lead mb-4 text-light">Your personal companion for mental health and wellbeing.</p>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-5">
+            <a href="{{ url_for('mood_tracker') }}" class="btn btn-primary btn-lg px-4 me-sm-3">Track Your Mood</a>
+            <a href="{{ url_for('assessment') }}" class="btn btn-outline-info btn-lg px-4">Take an Assessment</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row g-4 py-5">
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-brain fa-3x text-info mb-3"></i>
+                    <h4 class="card-title">Mental Health Assessments</h4>
+                    <p class="card-text">Take evidence-based assessments for anxiety, depression, and stress to gain insight into your mental health.</p>
+                    <a href="{{ url_for('assessment') }}" class="btn btn-outline-secondary mt-3">Take Assessment</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
+                    <h4 class="card-title">Track Your Mood</h4>
+                    <p class="card-text">Log your daily mood and activities to identify patterns and triggers over time.</p>
+                    <a href="{{ url_for('mood_tracker') }}" class="btn btn-outline-secondary mt-3">Log Mood</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark">
+                <div class="card-body text-center">
+                    <i class="fas fa-spa fa-3x text-info mb-3"></i>
+                    <h4 class="card-title">Relaxation Exercises</h4>
+                    <p class="card-text">Explore guided mindfulness and relaxation techniques to reduce stress and improve wellbeing.</p>
+                    <a href="{{ url_for('relaxation') }}" class="btn btn-outline-secondary mt-3">Start Relaxing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-lg-6">
+            <h3 class="border-bottom pb-2 mb-4"><i class="fas fa-info-circle text-info me-2"></i>About MindWell</h3>
+            <p>MindWell is a comprehensive mental health web application designed to help you understand, track, and improve your mental wellbeing. Whether you're looking to monitor your mood, assess your mental health, or find resources for coping strategies, MindWell offers tools to support your journey.</p>
+            <p>Mental health is just as important as physical health, and we believe in making mental wellness accessible to everyone. Our application provides evidence-based assessments, mood tracking, and educational resources to empower you in taking control of your mental wellbeing.</p>
+        </div>
+        
+        <div class="col-lg-6">
+            <h3 class="border-bottom pb-2 mb-4"><i class="fas fa-book-open text-info me-2"></i>Mental Health Resources</h3>
+            <p>Explore our library of resources on common mental health topics:</p>
+            <div class="list-group">
+                <a href="{{ url_for('resources', category='Anxiety') }}" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                    <i class="fas fa-wind fa-2x text-info"></i>
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">Anxiety Resources</h6>
+                            <p class="mb-0 opacity-75">Understand and manage anxiety symptoms</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="{{ url_for('resources', category='Depression') }}" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                    <i class="fas fa-cloud-rain fa-2x text-info"></i>
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">Depression Resources</h6>
+                            <p class="mb-0 opacity-75">Information and coping strategies for depression</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="{{ url_for('resources', category='Stress Management') }}" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                    <i class="fas fa-balance-scale fa-2x text-info"></i>
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                            <h6 class="mb-0">Stress Management</h6>
+                            <p class="mb-0 opacity-75">Techniques to reduce and manage stress</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

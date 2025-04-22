@@ -1,0 +1,192 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>MindWell - Mental Health Resources</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 border-bottom pb-2"><i class="fas fa-book-open text-info me-2"></i>Mental Health Resources</h2>
+    
+    {% if resource %}
+    <!-- Single resource detailed view -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card bg-dark mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ resource.title }}</h5>
+                    <span class="badge bg-info">{{ resource.category }}</span>
+                </div>
+                <div class="card-body">
+                    <p class="lead mb-4">{{ resource.summary }}</p>
+                    
+                    <div class="resource-content">
+                        {{ resource.content|safe }}
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ url_for('resources') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Resources
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-dark sticky-top" style="top: 20px">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>More Resources</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        {% for res in resources %}
+                            {% if res.id != resource.id %}
+                                <a href="{{ url_for('resource_detail', resource_id=res.id) }}" class="list-group-item list-group-item-action bg-dark border-secondary">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6>{{ res.title }}</h6>
+                                        <span class="badge bg-secondary">{{ res.category }}</span>
+                                    </div>
+                                    <p class="mb-1 small">{{ res.summary }}</p>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% else %}
+    <!-- Resource listing view -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="d-flex">
+                <div class="me-auto">
+                    <p class="lead">Browse our collection of mental health resources to learn more about common conditions, coping strategies, and wellness tips.</p>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            {% if request.args.get('category') %}
+                                {{ request.args.get('category') }}
+                            {% else %}
+                                All Categories
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('resources') }}">All Categories</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('resources', category='Anxiety') }}">Anxiety</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('resources', category='Depression') }}">Depression</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('resources', category='Stress Management') }}">Stress Management</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('resources', category='Support Services') }}">Support Services</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('resources', category='Relationships') }}">Relationships</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% if resources %}
+            {% for resource in resources %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 bg-dark">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">{{ resource.title }}</h6>
+                            <span class="badge bg-info">{{ resource.category }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ resource.summary }}</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{{ url_for('resource_detail', resource_id=resource.id) }}" class="btn btn-outline-info">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No resources found for this category. Please try another category or check back later.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-external-link-alt me-2"></i>External Resources</h5>
+                </div>
+                <div class="card-body">
+                    <p>Here are some reliable mental health resources in India:</p>
+                    
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-external-link-alt text-info me-2"></i>
+                            <strong>NIMHANS (National Institute of Mental Health and Neuro Sciences)</strong>
+                            <p class="mb-1 small">Premier mental health institution in Bangalore providing comprehensive resources and treatment options.</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-external-link-alt text-info me-2"></i>
+                            <strong>The Live Love Laugh Foundation</strong>
+                            <p class="mb-1 small">Founded by Deepika Padukone, this foundation provides resources for depression awareness and support.</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-external-link-alt text-info me-2"></i>
+                            <strong>TISS iCall</strong>
+                            <p class="mb-1 small">Psychosocial helpline by Tata Institute of Social Sciences offering professional counseling.</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-external-link-alt text-info me-2"></i>
+                            <strong>MindPeers</strong>
+                            <p class="mb-1 small">Online mental health platform providing affordable therapy and assessments.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-phone me-2"></i>Crisis Resources</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>If you're experiencing a mental health emergency, please seek immediate help:</strong>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-phone-alt text-info me-2"></i>
+                            <strong>NIMHANS Mental Health Helpline</strong>
+                            <p class="mb-0">080-26995000 or 080-26995100 (available 24/7)</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-phone-alt text-info me-2"></i>
+                            <strong>Vandrevala Foundation</strong>
+                            <p class="mb-0">1860-2662-345 or +91 9999 666 555 (available 24/7)</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-phone-alt text-info me-2"></i>
+                            <strong>Aasra</strong>
+                            <p class="mb-0">+91 9820466726 (available 24/7)</p>
+                        </li>
+                        <li class="list-group-item bg-dark border-secondary">
+                            <i class="fas fa-hospital text-info me-2"></i>
+                            <strong>Emergency Services</strong>
+                            <p class="mb-0">Call 112 (National Emergency Number) or 108 (Ambulance)</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
